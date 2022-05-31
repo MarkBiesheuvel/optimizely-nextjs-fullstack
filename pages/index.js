@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react'
 import {
   createInstance,
   OptimizelyProvider,
@@ -15,17 +16,20 @@ const Content = () => {
   return (
     <div>
       Hello World!
-      { variationKey === 'off' && <div>Off</div> }
-      { variationKey === 'variation_1' && <div>Variation #1</div> }
-      { variationKey === 'variation_2' && <div>Variation #2</div> }
-      { variationKey === 'variation_3' && <div>Variation #3</div> }
-      { variationKey === 'variation_4' && <div>Variation #4</div> }
+      <div>The sort order is {field} {direction}</div>
+      <div>{ variationKey }</div>
     </div>
   )
 }
 
 const Page = () => {
-  const id = 4
+  const [showChild, setShowChild] = useState(false)
+
+  useEffect(() => {
+    setShowChild(true)
+  })
+
+  const id = 6
   const user = {
     id: id.toString(),
     attributes: {
@@ -34,11 +38,15 @@ const Page = () => {
     }
   }
 
-  return (
-    <OptimizelyProvider optimizely={optimizely} user={user}>
-      <Content />
-    </OptimizelyProvider>
-  )
+  if (showChild) {
+    return (
+      <OptimizelyProvider optimizely={optimizely} user={user}>
+        <Content />
+      </OptimizelyProvider>
+    )
+  } else {
+    return <></>
+  }
 }
 
 export default Page
