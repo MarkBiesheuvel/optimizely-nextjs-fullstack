@@ -1,4 +1,6 @@
+import 'bootstrap/dist/css/bootstrap.min.css';
 import Head from 'next/head';
+import { Container } from 'react-bootstrap';
 import {createInstance} from '@optimizely/react-sdk';
 
 const optimizely = createInstance({
@@ -19,7 +21,9 @@ const App = ({ Component, pageProps }) => {
       <title>Optimizely Next.js Full Stack</title>
       <link rel="icon" href="/favicon.ico" />
     </Head>
-    <Component optimizely={optimizely} user={user} {...pageProps} />
+    <Container>
+      <Component optimizely={optimizely} user={user} {...pageProps} />
+    </Container>
   </>);
 };
 
