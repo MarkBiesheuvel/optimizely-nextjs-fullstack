@@ -1,4 +1,4 @@
-import { useState, } from 'react';
+import { useEffect, useState, } from 'react';
 import { Spinner } from 'react-bootstrap';
 import {
   OptimizelyProvider,
@@ -11,17 +11,9 @@ const Content = ({optimizely}) => {
   const { variables, variationKey } = decision;
   const { direction, field } = variables;
 
-  // Set visible state equal to the clientReady boolean
-  const [visible, setVisible] = useState(clientReady);
+  // NOTE: this might give hydration errors in the dev build, but not the production build
 
-  // Update the visibility if the client becomes ready later
-  if (!clientReady) {
-    optimizely.onReady().then(() => {
-      setVisible(true);
-    })
-  }
-
-  if (visible) {
+  if (clientReady) {
     // Actual content
     return (
       <>
